@@ -16,21 +16,11 @@ export const workflowSettings: WorkflowSettings = {
 };
 
 export default async function (event: onUserTokenGeneratedEvent) {
-  const userId = event.context.user.id;
-  const orgHandle = await getOrgHandleForUser(userId);
+  // const userId = event.context.user.id;
 
-  if (orgHandle) {
-    const claims = accessTokenCustomClaims<{ org_handle?: string }>();
-    claims.org_handle = orgHandle;
-  }
-}
-
-async function getOrgHandleForUser(userId: string): Promise<string | null> {
   const orgHandle = "vireo-energy";
-  console.warn(
-    "currently using hard-coded org handle (",
-    orgHandle,
-    ") for debug purposes",
-  );
-  return "vireo-energy";
+  console.warn(`currently using hard-coded org handle '${orgHandle}) for debug purposes`);
+
+  const claims = accessTokenCustomClaims<{ orgHandle?: string }>();
+  claims.orgHandle = orgHandle;
 }
